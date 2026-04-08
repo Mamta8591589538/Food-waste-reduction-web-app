@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🌱 FoodSaver — Food Waste Reduction Web App
 
 A full-stack mini project built with Node.js, Express, MongoDB, Bootstrap 5, HTML, CSS & JavaScript.
@@ -116,3 +117,7 @@ http://localhost:3000/login.html
 ---
 
 Made with 💚 for Web Programming Mini Project
+=======
+# Food-waste-reduction-web-app
+food waste management app
+>>>>>>> 7559b138481c491a517e1eb80f5b81036b089048
