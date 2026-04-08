@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory – FoodSaver</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="dashboard.html"><span>🌱</span> FoodSaver</a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-center gap-1">
+        <li class="nav-item"><a class="nav-link" href="dashboard.html">📊 Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link active" href="inventory.html">🥗 Inventory</a></li>
+        <li class="nav-item"><a class="nav-link" href="addFood.html">➕ Add Grocery</a></li>
+        <li class="nav-item ms-2">
+          <span class="nav-link" style="opacity:0.7;font-size:0.85rem" id="navUser">👤 ...</span>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-sm" style="background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.3);border-radius:8px" onclick="logout()">Sign Out</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <h1>🥗 Food Inventory</h1>
+    <p>Track and manage all your grocery items</p>
+  </div>
+</div>
+
+<div class="container" style="margin-top:48px">
+
+  <!-- EXPIRY ALERT BANNER -->
+  <div id="expiryAlert"></div>
+
+  <!-- SEARCH & FILTER -->
+  <div class="search-bar">
+    <div class="row g-3 align-items-center">
+
+      <div class="col-md-5">
+        <div style="position:relative">
+          <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:1rem">🔍</span>
+          <input id="searchInput" class="form-control ps-5" placeholder="Search groceries..." oninput="searchFood()">
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <select class="form-select" id="typeFilter" onchange="filterFood()">
+          <option value="all">All Types</option>
+          <option value="weekly">Weekly</option>
+          <option value="monthly">Monthly</option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <select class="form-select" id="expiryFilter" onchange="filterFood()">
+          <option value="all">All Items</option>
+          <option value="expiring">Expiring Soon (≤5d)</option>
+          <option value="fresh">Fresh Items</option>
+          <option value="expired">Expired</option>
+        </select>
+      </div>
+
+      <div class="col-md-1 text-end">
+        <span class="badge bg-success fs-6 px-3 py-2" id="itemCount">0</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOD LIST -->
+  <div id="foodList">
+    <div class="spinner-wrapper">
+      <div class="spinner-border" role="status"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  🌱 FoodSaver &nbsp;·&nbsp; Reduce waste, save money, help the planet
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+<script>
+  checkAuth();
+
+  // Check URL param for pre-filtering
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('filter') === 'expiring') {
+    document.getElementById('expiryFilter').value = 'expiring';
+  }
+
+  loadFoods();
+</script>
+</body>
+</html>
